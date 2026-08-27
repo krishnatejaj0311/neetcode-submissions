@@ -1,0 +1,13 @@
+-- Write your query below
+select customer_number from (
+select customer_number, count(order_number) as total_orders from
+orders
+group by 1
+) where total_orders in (
+    select max(total_orders) from (
+        select customer_number, count(order_number) as total_orders from
+orders
+group by 1
+
+    )
+)
